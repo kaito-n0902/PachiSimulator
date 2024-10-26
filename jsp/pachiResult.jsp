@@ -36,7 +36,7 @@
 <form action="PachiTest" method="post">
 	<input type="hidden" name="radiobtn" value="${pachi.model }">
 	<input type="hidden" name="money" value="${pachi.money }">
-	<input type="submit" value="もう一度"/>
+	<input type="submit" value="もう一度">
 </form>
 </body>
 </html>
