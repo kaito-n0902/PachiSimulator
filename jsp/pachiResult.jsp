@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.Pachi" %>
-<%
-Pachi pachi = (Pachi)request.getAttribute("pachi");
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,26 +9,34 @@ Pachi pachi = (Pachi)request.getAttribute("pachi");
 </head>
 <body>
 <p>収支</p>
-選んだ台：<%= pachi.getModel() %><br>
-投資金額：<%= pachi.getMoney() %>円<br>
-初当たり回数：<%= pachi.getFirstBonusCnt() %><br>
-ボーナス回数：<%
-if(pachi.getModel().equals("toloveru")){
-	out.println("900発：" + pachi.getPetitBonus() + "回, ");
-	out.println("2100発：" + pachi.getMediumBonus() + "回, ");
-	out.println("3300発：" + pachi.getBigBonus() + "回, ");
-	out.println("4500発：" + pachi.getMaxBonus() + "回");
-}else if(pachi.getModel().equals("rezero")){
-	out.println("リスタート：" + pachi.getPetitBonus() + "回, ");
-	out.println("300発：" + pachi.getMediumBonus() + "回, ");
-	out.println("1500発：" + pachi.getBigBonus() + "回, ");
-	out.println("3000発：" + pachi.getMaxBonus() + "回");
-}else if(pachi.getModel().equals("eva")){
-	out.println("1500発：" + pachi.getMaxBonus() + "回");
-}
-%><br>
-結果：<%= pachi.getBall() %>発獲得<br>
-使用金額：<%= pachi.getUsedMoney() %>円<br><br>
+選んだ台：<c:out value="${pachi.model}" /><br>
+投資金額：<c:out value="${pachi.money}" />円<br>
+初当たり回数：<c:out value="${pachi.firstBonusCnt}" /><br>
+ボーナス回数：
+<c:choose>
+	<c:when test="${pachi.model == 'toloveru'}">
+		900発 <c:out value="${pachi.petitBonus }"/> 回, 
+		2100発 <c:out value="${pachi.mediumBonus }"/> 回, 
+		3300発 <c:out value="${pachi.bigBonus }"/> 回, 
+		4500発 <c:out value="${pachi.maxBonus }"/> 回
+	</c:when>
+	<c:when test="${pachi.model == 'rezero' }">
+		リスタート <c:out value="${pachi.petitBonus }"/> 回, 
+		300発 <c:out value="${pachi.mediumBonus }"/> 回, 
+		1500発 <c:out value="${pachi.bigBonus }"/> 回, 
+		3000発 <c:out value="${pachi.maxBonus }"/> 回
+	</c:when>
+	<c:when test="${pachi.model == 'eva' }">
+		1500発 <c:out value="${pachi.maxBonus }" /> 回
+	</c:when>
+</c:choose><br>
+結果：<c:out value="${pachi.ball}" />発獲得<br>
+使用金額：<c:out value="${pachi.usedMoney}" />円<br><br>
 <a href="PachiTest">戻る</a>
+<form action="PachiTest" method="post">
+	<input type="hidden" name="radiobtn" value="${pachi.model }">
+	<input type="hidden" name="money" value="${pachi.money }">
+	<input type="submit" value="もう一度"/>
+</form>
 </body>
 </html>
