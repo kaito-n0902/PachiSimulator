@@ -3,6 +3,7 @@ package model;
 import java.io.Serializable;
 
 public class Pachi implements Serializable{
+	private int key;
 	private String model;
 	private int money;
 	private int ball;
@@ -14,11 +15,28 @@ public class Pachi implements Serializable{
 	private int usedMoney;
 	
 	public Pachi() {}
-	public Pachi(String model, int money) {
+	public Pachi(int key, String model, int money) {
+		this.key = key;
 		this.model = model;
 		this.money = money;
 	}
+	public Pachi(int key, String model, int money, int firstBonusCnt, int petitBonus, 
+			int mediumBonus, int bigBonus, int maxBonus, int ball, int usedMoney) {
+		this.key = key;
+		this.model = model;
+		this.money = money;
+		this.firstBonusCnt = firstBonusCnt;
+		this.petitBonus = petitBonus;
+		this.mediumBonus = mediumBonus;
+		this.bigBonus = bigBonus;
+		this.maxBonus = maxBonus;
+		this.ball = ball;
+		this.usedMoney = usedMoney;
+	}
 	
+	public int getKey() {
+		return this.key;
+	}
 	public String getModel() {
 		return this.model;
 	}
